@@ -59,13 +59,13 @@ def create_contact():
     
     # Create a new contact without manually setting the id
     new_contact = Contact(name=name, url=video_url)  # Let the db generate the id
+    download_youtube_audio_yt_dlp(video_url)
     
     try:
         db.session.add(new_contact)
         db.session.commit()
     except Exception as e:
         return jsonify({"message": str(e)}), 400
-
     return jsonify({"message": "URL created", "contact": new_contact.to_json()}), 201
 
 
